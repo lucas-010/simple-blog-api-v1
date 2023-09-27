@@ -1,5 +1,6 @@
 import Article from "../../../models/Article";
 import Category from "../../../models/Category";
+import Comment from "../../../models/Comment";
 import Role from "../../../models/Role";
 import User from "../../../models/User";
 
