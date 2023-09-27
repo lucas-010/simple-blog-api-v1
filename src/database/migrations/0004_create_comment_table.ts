@@ -5,10 +5,10 @@ export const up = async (knex: Knex): Promise<void> => {
 		.createTable("user", (table) => {
 			table.increments("id").primary().index();
 			table.string("text").notNullable().checkLength(">=", 1);
-			table.integer("user").unsigned();
-			table.foreign("user").references("user.id");
-			table.integer("article").unsigned();
-			table.foreign("article").references("article.id");
+			table.integer("userId").unsigned();
+			table.foreign("userId").references("user.id");
+			table.integer("articleId").unsigned();
+			table.foreign("articleId").references("article.id");
 		})
 		.then(() => {
 			console.log("# Created table user");
