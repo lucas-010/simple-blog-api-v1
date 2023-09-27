@@ -1,7 +1,7 @@
 interface Article {
 	id: number;
 	title: string;
-	text: string;
+	body: string;
 	published: Date;
 	userId: number;
 	categoryId: string;
