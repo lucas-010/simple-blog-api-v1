@@ -24,7 +24,14 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "test": "jest"
+    "start": "ts-node ./src/index.ts",
+    "production": "node ./build/index.js",
+    "build": "tsc",
+    "test": "jest",
+    "migrate:dev": "knex --knexfile ./src/database/config/environments/development.ts migrate:latest",
+    "seed:dev": "knex --knexfile ./src/database/config/environments/development.ts seed:run",
+    "migrate:production": "knex --knexfile ./src/database/config/environments/production.ts migrate:latest",
+    "seed:production": "knex --knexfile ./src/database/config/environments/production.ts seed:run"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
