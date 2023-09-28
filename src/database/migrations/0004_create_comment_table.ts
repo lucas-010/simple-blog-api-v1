@@ -2,7 +2,7 @@ import { Knex } from "knex";
 
 export const up = async (knex: Knex): Promise<void> => {
 	await knex.schema
-		.createTable("user", (table) => {
+		.createTable("comment", (table) => {
 			table.increments("id").primary().index();
 			table.string("text").notNullable().checkLength(">=", 1);
 			table.integer("userId").unsigned();
@@ -11,12 +11,12 @@ export const up = async (knex: Knex): Promise<void> => {
 			table.foreign("articleId").references("article.id");
 		})
 		.then(() => {
-			console.log("# Created table user");
+			console.log("# Created table comment");
 		});
 };
 
 export const down = async (knex: Knex): Promise<void> => {
-	await knex.schema.dropTable("user").then(() => {
-		console.log("# Dropped table user");
+	await knex.schema.dropTable("comment").then(() => {
+		console.log("# Dropped table comment");
 	});
 };
