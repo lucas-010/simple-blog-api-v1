@@ -4,7 +4,11 @@ describe("Role Repository", () => {
 
 		test("should return an error when trying to insert a role with an empty name", async () => {});
 
+		test("should return an error when trying to insert name existing", async () => {});
+
 		test("should return an error when trying to insert a role with a name of 1 character", async () => {});
+
+		test("should return an error when trying to insert an description empty", async () => {});
 
 		test("should return an error when trying to insert a role with a description of 1 character", async () => {});
 
@@ -29,6 +33,14 @@ describe("Role Repository", () => {
 
 	describe("Update", () => {
 		test("should update a role and return the updated role", async () => {});
+
+		test("should return error when trying update name empty", async () => {});
+
+		test("should return error when trying update name of 1 character", async () => {});
+
+		test("should return error when trying update description empty", async () => {});
+
+		test("should return error when trying update description of 1 character", async () => {});
 
 		test("should return null when trying to update a non-existent role", async () => {});
 	});
