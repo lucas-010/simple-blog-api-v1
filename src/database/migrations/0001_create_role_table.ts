@@ -5,6 +5,7 @@ export const up = async (knex: Knex) => {
 		.createTable("role", (table) => {
 			table.increments("id").primary().index();
 			table.string("name").notNullable().unique().index().checkLength(">=", 2);
+			table.text("description").notNullable().checkLength(">=", 2);
 		})
 		.then(() => {
 			console.log("# Created table role");
