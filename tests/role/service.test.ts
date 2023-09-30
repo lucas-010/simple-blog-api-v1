@@ -44,4 +44,10 @@ describe("Role Service", () => {
 
 		test("should return an error with status code 400 when trying to update a role with a description of 1 character", async () => {});
 	});
+
+	describe("Check Name", () => {
+		test("should return true when passed name existing", async () => {});
+
+		test("should return false when passed name non-existing", async () => {});
+	});
 });
