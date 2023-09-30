@@ -14,9 +14,9 @@ describe("Role Controller", () => {
 	});
 
 	describe("GET", () => {
-		test("should return all roles", async () => {});
+		test("should return all roles and return status code 200", async () => {});
 
-		test("by Id - should return a role according to the id passed", async () => {});
+		test("by Id - should return a role according to the id passed and return status code 200", async () => {});
 
 		test("by Id - should return an error and status code 400 when passing a non-integer value with id", async () => {});
 
@@ -24,7 +24,7 @@ describe("Role Controller", () => {
 	});
 
 	describe("PUT", () => {
-		test("should update a role by id and return the updated role", async () => {});
+		test("should update a role by id and return the updated role and return status code 200", async () => {});
 
 		test("should return an error with status code 404 when trying to update a non-existent role", async () => {});
 
