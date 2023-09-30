@@ -11,8 +11,6 @@ describe("Role Repository", () => {
 		test("should return an error when trying to insert an description empty", async () => {});
 
 		test("should return an error when trying to insert a role with a description of 1 character", async () => {});
-
-		test("should return an error when trying to insert a role with an empty description", async () => {});
 	});
 
 	describe("Selection", () => {
