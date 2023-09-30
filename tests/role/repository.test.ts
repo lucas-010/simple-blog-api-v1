@@ -14,6 +14,10 @@ describe("Role Repository", () => {
 	});
 
 	describe("Selection", () => {
+		test("should return all roles", async () => {});
+
+		test("should return an array empty for datas non-existent", async () => {});
+
 		test("by ID - should return a role according to the given ID", async () => {});
 
 		test("by Name - should return a role according to the given name", async () => {});
