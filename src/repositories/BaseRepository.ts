@@ -31,8 +31,14 @@ abstract class BaseRepository<T> {
 
 	public async update(id: number, item: T): Promise<T | null> {
 		try {
-			await this.databaseClient(this.tableName).where("id", id).update(item);
-			return this.findById(id);
+			const updatedCount = await this.databaseClient(this.tableName)
+				.where("id", id)
+				.update(item);
+			if (updatedCount > 0) {
+				return this.findById(id);
+			} else {
+				return null;
+			}
 		} catch (error) {
 			throw new Error(`Error updating item: ${(error as Error).message}`);
 		}
