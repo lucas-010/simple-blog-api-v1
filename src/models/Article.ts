@@ -1,5 +1,5 @@
 interface Article {
-	id: number;
+	id?: number;
 	title: string;
 	body: string;
 	published: Date;
