@@ -20,10 +20,12 @@ abstract class BaseRepository<T> {
 
 	public async insert(item: T): Promise<number | null> {
 		try {
-			const [id] = await this.databaseClient(this.tableName).insert(item, "id");
-			return id;
+			const [result] = await this.databaseClient(this.tableName)
+				.insert({ ...item })
+				.returning("id");
+			return result.id;
 		} catch (error) {
-			throw new Error("Error inserting item: " + error);
+			throw new Error(`Error inserting item: ${(error as Error).message}`);
 		}
 	}
 
@@ -32,7 +34,7 @@ abstract class BaseRepository<T> {
 			await this.databaseClient(this.tableName).where("id", id).update(item);
 			return this.findById(id);
 		} catch (error) {
-			throw new Error("Error updating item: " + error);
+			throw new Error(`Error updating item: ${(error as Error).message}`);
 		}
 	}
 
