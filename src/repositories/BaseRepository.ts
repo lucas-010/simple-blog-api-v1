@@ -1,16 +1,15 @@
 import { Knex } from "knex";
-import databaseClient from "../database/config";
 
-abstract class BaseRepository<T> {
+class BaseRepository<T> {
 	protected tableName: string;
 	protected databaseClient: Knex;
 
-	constructor(tableName: string) {
+	constructor(tableName: string, databaseClient: Knex) {
 		this.tableName = tableName;
 		this.databaseClient = databaseClient;
 	}
 
-	public async findAll(): Promise<T[] | null> {
+	public async findAll(): Promise<T[]> {
 		return await this.databaseClient(this.tableName).select("*");
 	}
 
@@ -19,29 +18,17 @@ abstract class BaseRepository<T> {
 	}
 
 	public async insert(item: T): Promise<number | null> {
-		try {
-			const [result] = await this.databaseClient(this.tableName)
-				.insert({ ...item })
-				.returning("id");
-			return result.id;
-		} catch (error) {
-			throw new Error(`Error inserting item: ${(error as Error).message}`);
-		}
+		const [result] = await this.databaseClient(this.tableName)
+			.insert(item)
+			.returning("id");
+		return result?.id || null;
 	}
 
 	public async update(id: number, item: T): Promise<T | null> {
-		try {
-			const updatedCount = await this.databaseClient(this.tableName)
-				.where("id", id)
-				.update(item);
-			if (updatedCount > 0) {
-				return this.findById(id);
-			} else {
-				return null;
-			}
-		} catch (error) {
-			throw new Error(`Error updating item: ${(error as Error).message}`);
-		}
+		const updatedCount = await this.databaseClient(this.tableName)
+			.where("id", id)
+			.update(item);
+		return updatedCount > 0 ? await this.findById(id) : null;
 	}
 
 	public async delete(id: number): Promise<boolean> {
