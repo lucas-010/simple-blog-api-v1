@@ -31,7 +31,7 @@ abstract class BaseService<T, R extends BaseRepository<T>> {
 		}
 	}
 
-	async update(id: number, item: T): Promise<boolean> {
+	async update(id: number, item: Partial<T>): Promise<boolean> {
 		try {
 			return await this.repository.update(id, item);
 		} catch {
