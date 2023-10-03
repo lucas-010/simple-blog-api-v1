@@ -1,10 +1,11 @@
 import { Knex } from "knex";
+import databaseClient from "../database/config";
 
-class BaseRepository<T> {
+abstract class BaseRepository<T> {
 	protected tableName: string;
 	protected databaseClient: Knex;
 
-	constructor(tableName: string, databaseClient: Knex) {
+	constructor(tableName: string) {
 		this.tableName = tableName;
 		this.databaseClient = databaseClient;
 	}
