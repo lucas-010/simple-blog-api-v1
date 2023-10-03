@@ -9,85 +9,95 @@ abstract class BaseController<T, S extends BaseService<T, any>> {
 		this.service = service;
 	}
 
-	async post(
-		request: Request<object, object, T>,
-		response: Response
+	async create(
+		req: Request<object, object, T>,
+		res: Response
 	): Promise<Response> {
 		try {
-			const item: T = request.body;
-			const result = await this.service.create(item);
-			return response.status(StatusCodes.CREATED).json({ id: result });
+			const item: T = req.body;
+			const id = await this.service.create(item);
+			return res.status(StatusCodes.CREATED).json({ id });
 		} catch (error) {
-			return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
+			return res
+				.status(StatusCodes.INTERNAL_SERVER_ERROR)
+				.json({ error: "Failed to create" });
 		}
 	}
 
-	async getAll(request: Request, response: Response) {
+	async getAll(req: Request, res: Response): Promise<Response> {
 		try {
 			const result = await this.service.getAll();
 			if (result.length > 0) {
-				return response.status(StatusCodes.OK).json(result);
+				return res.status(StatusCodes.OK).json(result);
 			}
-			return response
+			return res
 				.status(StatusCodes.NOT_FOUND)
-				.json({ message: "No records found" });
+				.json({ message: "No items found" });
 		} catch (error) {
-			return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
+			return res
+				.status(StatusCodes.INTERNAL_SERVER_ERROR)
+				.json({ error: "Failed to fetch all" });
 		}
 	}
 
-	async getById(request: Request<{ id: number }>, response: Response) {
-		try {
-			const result = await this.service.getById(request.params.id);
-			if (result) {
-				return response.status(StatusCodes.OK).json(result);
-			}
-			return response
-				.status(StatusCodes.NOT_FOUND)
-				.json({ message: "Record not found" });
-		} catch (error) {
-			return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
-		}
-	}
-
-	async put(
-		request: Request<{ id: number }, object, Partial<T>>,
-		response: Response
+	async getById(
+		req: Request<{ id: number }>,
+		res: Response
 	): Promise<Response> {
 		try {
-			const id = request.params.id;
-			const item: Partial<T> = request.body;
-			const result = await this.service.update(id, item);
+			const result = await this.service.getById(req.params.id);
 			if (result) {
-				return response
+				return res.status(StatusCodes.OK).json(result);
+			}
+			return res
+				.status(StatusCodes.NOT_FOUND)
+				.json({ message: "Item not found" });
+		} catch (error) {
+			return res
+				.status(StatusCodes.INTERNAL_SERVER_ERROR)
+				.json({ error: "Failed to fetch by ID" });
+		}
+	}
+
+	async update(
+		req: Request<{ id: number }, object, Partial<T>>,
+		res: Response
+	): Promise<Response> {
+		try {
+			const id = req.params.id;
+			const item: Partial<T> = req.body;
+			const success = await this.service.update(id, item);
+			if (success) {
+				return res
 					.status(StatusCodes.OK)
 					.json({ message: "Updated successfully" });
 			}
-			return response
+			return res
 				.status(StatusCodes.UNPROCESSABLE_ENTITY)
-				.json({ message: "Unable to update record" });
+				.json({ message: "Unable to update" });
 		} catch (error) {
-			return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
+			return res
+				.status(StatusCodes.INTERNAL_SERVER_ERROR)
+				.json({ error: "Failed to update" });
 		}
 	}
 
-	async delete(
-		request: Request<{ id: number }>,
-		response: Response
-	): Promise<Response> {
+	async delete(req: Request<{ id: number }>, res: Response): Promise<Response> {
 		try {
-			const id = request.params.id;
-			const result = await this.service.delete(id);
-			if (result) {
-				return response
+			const id = req.params.id;
+			const success = await this.service.delete(id);
+			if (success) {
+				return res
 					.status(StatusCodes.OK)
 					.json({ message: "Successfully deleted" });
 			}
-			return response
+			return res
 				.status(StatusCodes.NOT_FOUND)
-				.json({ message: "Unable to delete record" });
+				.json({ message: "Unable to delete" });
 		} catch (error) {
-			return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
+			return res
+				.status(StatusCodes.INTERNAL_SERVER_ERROR)
+				.json({ error: "Failed to delete" });
 		}
 	}
 }
