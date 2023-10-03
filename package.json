@@ -28,8 +28,9 @@
   },
   "scripts": {
     "start": "tsx ./src/index.ts",
+		"start:dev": "tsx watch ./src/index.ts",
     "production": "node ./build/index.js",
-    "build": "tsc",
+    "build": "tsup src",
     "test": "jest",
     "migrate:dev": "knex --knexfile ./src/database/config/environments/development.ts migrate:latest",
     "seed:dev": "knex --knexfile ./src/database/config/environments/development.ts seed:run",
