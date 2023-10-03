@@ -49,7 +49,7 @@ describe("Role - Create", () => {
 
 	test("should return an error and status code 400 when passing an empty description", async () => {
 		const data = {
-			name: "Test Role",
+			name: "Test Role 2",
 			description: "",
 		};
 
@@ -64,7 +64,7 @@ describe("Role - Create", () => {
 
 	test("should return an error and status code 400 when passing an description with 1 character", async () => {
 		const data = {
-			name: "Test Role",
+			name: "Test Role 3",
 			description: "",
 		};
 
@@ -79,7 +79,7 @@ describe("Role - Create", () => {
 
 	test("should return an error and status code 409 when passing an name duplicate", async () => {
 		const data = {
-			name: "Test Role",
+			name: "Test Role 4",
 			description: "Test role description",
 		};
 
@@ -92,7 +92,7 @@ describe("Role - Create", () => {
 		expect(typeof response.body.id).toEqual("number");
 
 		const data2 = {
-			name: "Test Role",
+			name: "Test Role 4",
 			description: "Test role description",
 		};
 
