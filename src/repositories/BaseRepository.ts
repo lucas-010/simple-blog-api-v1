@@ -25,7 +25,7 @@ abstract class BaseRepository<T> {
 		return result?.id || -1;
 	}
 
-	public async update(id: number, item: T): Promise<boolean> {
+	public async update(id: number, item: Partial<T>): Promise<boolean> {
 		const updatedCount = await this.databaseClient(this.tableName)
 			.where("id", id)
 			.update(item);
