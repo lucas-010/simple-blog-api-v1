@@ -23,12 +23,13 @@
     "sqlite3": "^5.1.6",
     "supertest": "^6.3.3",
     "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
     "tsx": "^3.13.0",
     "typescript": "^5.2.2"
   },
   "scripts": {
     "start": "tsx ./src/index.ts",
-		"start:dev": "tsx watch ./src/index.ts",
+    "start:dev": "tsx watch ./src/index.ts",
     "production": "node ./dist/index.js",
     "build": "tsup src",
     "test": "jest",
