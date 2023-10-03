@@ -29,7 +29,7 @@
   "scripts": {
     "start": "tsx ./src/index.ts",
 		"start:dev": "tsx watch ./src/index.ts",
-    "production": "node ./build/index.js",
+    "production": "node ./dist/index.js",
     "build": "tsup src",
     "test": "jest",
     "migrate:dev": "knex --knexfile ./src/database/config/environments/development.ts migrate:latest",
