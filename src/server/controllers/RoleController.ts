@@ -31,4 +31,4 @@ class RoleController extends BaseController<Role, RoleService> {
 	}
 }
 
-export default RoleController;
+export default new RoleController();
