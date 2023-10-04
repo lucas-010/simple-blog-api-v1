@@ -27,9 +27,9 @@ describe("Role - Create", () => {
 
 		expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
 
-		expect(response.body).toHaveProperty("error");
+		expect(response.body).toHaveProperty("errors");
 
-		expect(response.body.error[0].path).toEqual("name");
+		expect(response.body.errors.details[0].path[0]).toEqual("name");
 	});
 
 	test("should return an error and status code 400 when passing an name with 1 character", async () => {
@@ -42,9 +42,9 @@ describe("Role - Create", () => {
 
 		expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
 
-		expect(response.body).toHaveProperty("error");
+		expect(response.body).toHaveProperty("errors");
 
-		expect(response.body.error[0].path).toEqual("name");
+		expect(response.body.errors.details[0].path[0]).toEqual("name");
 	});
 
 	test("should return an error and status code 400 when passing an empty description", async () => {
@@ -57,9 +57,9 @@ describe("Role - Create", () => {
 
 		expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
 
-		expect(response.body).toHaveProperty("error");
+		expect(response.body).toHaveProperty("errors");
 
-		expect(response.body.error[0].path).toEqual("description");
+		expect(response.body.errors.details[0].path[0]).toEqual("description");
 	});
 
 	test("should return an error and status code 400 when passing an description with 1 character", async () => {
@@ -72,9 +72,9 @@ describe("Role - Create", () => {
 
 		expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
 
-		expect(response.body).toHaveProperty("error");
+		expect(response.body).toHaveProperty("errors");
 
-		expect(response.body.error[0].path).toEqual("description");
+		expect(response.body.errors.details[0].path[0]).toEqual("description");
 	});
 
 	test("should return an error and status code 409 when passing an name duplicate", async () => {
@@ -100,6 +100,6 @@ describe("Role - Create", () => {
 
 		expect(response2.statusCode).toEqual(StatusCodes.CONFLICT);
 
-		expect(response.body).toHaveProperty("error");
+		expect(response2.body).toHaveProperty("error");
 	});
 });
